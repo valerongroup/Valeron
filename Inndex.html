@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Valeron Hospitality Group</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+```
+:root {
+  --gold: #b8965a;
+  --gold-light: #d4af7a;
+  --gold-pale: #f5ede0;
+  --dark: #1a1714;
+  --warm-white: #faf8f5;
+  --text: #3a3530;
+  --muted: #8a8178;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: var(--warm-white);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.5rem 4rem;
+  background: rgba(250, 248, 245, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(184, 150, 90, 0.15);
+}
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--dark);
+}
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--muted);
+  transition: color 0.3s;
+}
+.nav-links a:hover { color: var(--gold); }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-top: 80px;
+}
+.hero-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 6rem 4rem 6rem 6rem;
+  position: relative;
+}
+.hero-left::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(135deg, var(--gold-pale) 0%, transparent 60%);
+  opacity: 0.5;
+  pointer-events: none;
+}
+.hero-eyebrow {
+  font-size: 0.65rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards 0.2s;
+}
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3rem, 5vw, 5rem);
+  font-weight: 300;
+  line-height: 1.1;
+  color: var(--dark);
+  margin-bottom: 2rem;
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards 0.4s;
+}
+.hero-title em {
+  font-style: italic;
+  color: var(--gold);
+}
+.hero-desc {
+  font-size: 0.85rem;
+  line-height: 1.9;
+  color: var(--muted);
+  max-width: 420px;
+  margin-bottom: 3rem;
+  font-weight: 300;
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards 0.6s;
+}
+.hero-cta {
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  background: var(--dark);
+  color: var(--warm-white);
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.3s, transform 0.2s;
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards 0.8s;
+}
+.hero-cta:hover { background: var(--gold); transform: translateY(-2px); }
+
+.hero-right {
+  position: relative;
+  overflow: hidden;
+  background: var(--dark);
+}
+.hero-img-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to right, var(--warm-white) 0%, transparent 15%),
+              linear-gradient(135deg, rgba(184,150,90,0.15) 0%, transparent 60%);
+  z-index: 1;
+}
+.hero-right img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0.75;
+  transform: scale(1.05);
+  animation: slowZoom 12s ease forwards;
+}
+.hero-badge {
+  position: absolute;
+  bottom: 3rem; right: 3rem;
+  z-index: 2;
+  text-align: right;
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards 1s;
+}
+.hero-badge span {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  color: rgba(255,255,255,0.6);
+  text-transform: uppercase;
+}
+.hero-badge strong {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: var(--gold-light);
+  line-height: 1;
+}
+
+/* DIVIDER */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0 6rem;
+  margin: 4rem 0;
+}
+.divider-line { flex: 1; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
+.divider-icon {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  color: var(--gold);
+  letter-spacing: 0.3em;
+}
+
+/* OFFERINGS */
+.section { padding: 5rem 6rem; }
+.section-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 3.5vw, 3.2rem);
+  font-weight: 300;
+  color: var(--dark);
+  line-height: 1.2;
+  margin-bottom: 3rem;
+  max-width: 600px;
+}
+
+.offerings-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+}
+.offering-card {
+  background: var(--dark);
+  padding: 3rem 2rem;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s;
+  cursor: default;
+}
+.offering-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(184,150,90,0.08) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.offering-card:hover { transform: translateY(-4px); }
+.offering-card:hover::before { opacity: 1; }
+.offering-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3.5rem;
+  color: rgba(184,150,90,0.15);
+  font-weight: 300;
+  line-height: 1;
+  margin-bottom: 1.5rem;
+}
+.offering-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  color: var(--warm-white);
+  font-weight: 300;
+  margin-bottom: 0.75rem;
+}
+.offering-desc {
+  font-size: 0.72rem;
+  color: rgba(250,248,245,0.45);
+  line-height: 1.8;
+  font-weight: 300;
+  letter-spacing: 0.02em;
+}
+.offering-border {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(to right, var(--gold), transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+.offering-card:hover .offering-border { transform: scaleX(1); }
+
+/* WHO WE SERVE */
+.serve-section {
+  padding: 5rem 6rem;
+  background: var(--gold-pale);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: center;
+}
+.serve-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+.serve-list li {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  color: var(--text);
+  font-weight: 300;
+}
+.serve-list li::before {
+  content: '—';
+  color: var(--gold);
+  font-size: 1rem;
+}
+.serve-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.6rem, 2.5vw, 2.4rem);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--dark);
+}
+.serve-quote cite {
+  display: block;
+  font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-top: 1.5rem;
+}
+
+/* CONTACT FORM */
+.contact-section {
+  padding: 6rem 6rem;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+.contact-section .section-title { margin: 0 auto 1rem; }
+.contact-section .section-desc {
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-bottom: 3.5rem;
+  line-height: 1.9;
+  font-weight: 300;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  text-align: left;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.form-group.full { grid-column: 1 / -1; }
+.form-group label {
+  font-size: 0.62rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(184,150,90,0.3);
+  padding: 0.75rem 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 300;
+  color: var(--dark);
+  outline: none;
+  transition: border-color 0.3s;
+  width: 100%;
+  appearance: none;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-bottom-color: var(--gold);
+}
+.form-group textarea { resize: vertical; min-height: 100px; }
+.form-group select { cursor: pointer; }
+
+.form-submit {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+.btn-submit {
+  padding: 1.1rem 4rem;
+  background: var(--dark);
+  color: var(--warm-white);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+.btn-submit:hover { background: var(--gold); transform: translateY(-2px); }
+.form-note {
+  font-size: 0.68rem;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+}
+
+/* SUCCESS MESSAGE */
+.success-msg {
+  display: none;
+  padding: 1.5rem 2rem;
+  background: rgba(184,150,90,0.1);
+  border: 1px solid rgba(184,150,90,0.3);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  color: var(--gold);
+  text-align: center;
+  margin-top: 2rem;
+}
+
+/* FOOTER */
+footer {
+  background: var(--dark);
+  padding: 3rem 6rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.footer-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--warm-white);
+}
+.footer-tagline {
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.footer-right {
+  font-size: 0.65rem;
+  color: rgba(250,248,245,0.3);
+  letter-spacing: 0.1em;
+}
+
+/* ANIMATIONS */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slowZoom {
+  from { transform: scale(1.05); }
+  to { transform: scale(1); }
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  nav { padding: 1.2rem 2rem; }
+  .nav-links { display: none; }
+  .hero { grid-template-columns: 1fr; min-height: auto; }
+  .hero-right { height: 50vw; }
+  .hero-left { padding: 4rem 2rem; }
+  .section, .contact-section { padding: 4rem 2rem; }
+  .serve-section { grid-template-columns: 1fr; padding: 4rem 2rem; gap: 3rem; }
+  .offerings-grid { grid-template-columns: 1fr 1fr; }
+  .form-grid { grid-template-columns: 1fr; }
+  .form-group.full { grid-column: 1; }
+  footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2.5rem 2rem; }
+  .divider { padding: 0 2rem; }
+}
+```
+
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+
+  <nav>
+    <div class="nav-logo">Valeron Hospitality Group</div>
+    <ul class="nav-links">
+      <li><a href="#offerings">Offerings</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#inquiry">Inquire</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+
+  <section class="hero">
+    <div class="hero-left">
+      <p class="hero-eyebrow">Custom Branded Hospitality Textiles</p>
+      <h1 class="hero-title">The <em>Guest Experience</em><br>Begins with Touch</h1>
+      <p class="hero-desc">Valeron Hospitality Group crafts bespoke branded towels, robes, amenity kits, and textiles — designed to extend your property's identity into every guest moment.</p>
+      <a href="#inquiry" class="hero-cta">Request a Consultation</a>
+    </div>
+    <div class="hero-right">
+      <div class="hero-img-overlay"></div>
+      <!-- Placeholder image — replace src with your own product photo -->
+      <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=900&q=80" alt="Luxury hotel amenities" />
+      <div class="hero-badge">
+        <span>Bespoke</span>
+        <strong>Luxury</strong>
+        <span>Hospitality Textiles</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-icon">✦</div>
+    <div class="divider-line"></div>
+  </div>
+
+  <!-- OFFERINGS -->
+
+  <section class="section" id="offerings">
+    <p class="section-label">What We Create</p>
+    <h2 class="section-title">Branded from First Impression to Final Detail</h2>
+    <div class="offerings-grid">
+      <div class="offering-card">
+        <div class="offering-num">01</div>
+        <div class="offering-name">Custom Towels</div>
+        <div class="offering-desc">Plush, embroidered bath and pool towels bearing your property's mark — from monograms to full custom weaves.</div>
+        <div class="offering-border"></div>
+      </div>
+      <div class="offering-card">
+        <div class="offering-num">02</div>
+        <div class="offering-name">Robes & Slippers</div>
+        <div class="offering-desc">Signature robes and coordinated slippers that transform a room into a sanctuary guests want to linger in.</div>
+        <div class="offering-border"></div>
+      </div>
+      <div class="offering-card">
+        <div class="offering-num">03</div>
+        <div class="offering-name">Amenity Kits</div>
+        <div class="offering-desc">Curated, logo-branded amenity pouches and kits that speak the language of quiet luxury from the moment they're opened.</div>
+        <div class="offering-border"></div>
+      </div>
+      <div class="offering-card">
+        <div class="offering-num">04</div>
+        <div class="offering-name">Bedding & Textiles</div>
+        <div class="offering-desc">Bespoke linens, pillow covers, and soft goods woven to your brand's standard — cohesive across every touchpoint.</div>
+        <div class="offering-border"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO WE SERVE -->
+
+  <section class="serve-section" id="about">
+    <div>
+      <p class="section-label">Who We Serve</p>
+      <h2 class="section-title">Built for Properties That Refuse to be Ordinary</h2>
+      <ul class="serve-list">
+        <li>Boutique Hotels & Inns</li>
+        <li>Luxury Resorts & Spas</li>
+        <li>Vacation Rental Collections</li>
+        <li>Private Members' Clubs</li>
+        <li>Corporate Retreat Properties</li>
+      </ul>
+    </div>
+    <div>
+      <blockquote class="serve-quote">
+        "Every branded detail is a whisper of who you are. We make sure your guests hear it clearly — in the weight of a robe, the softness of a towel, the finish of an amenity kit."
+        <cite>— Valeron Hospitality Group</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-icon">✦</div>
+    <div class="divider-line"></div>
+  </div>
+
+  <!-- INQUIRY FORM -->
+
+  <section class="contact-section" id="inquiry">
+    <p class="section-label">Get in Touch</p>
+    <h2 class="section-title">Request a Custom Consultation</h2>
+    <p class="section-desc">Tell us about your property and what you're looking to create. We'll follow up within 48 hours to discuss how we can bring your brand to life through every textile touchpoint.</p>
+
+```
+<!-- Replace YOUR_FORM_ID with your Formspree form ID after signing up at formspree.io -->
+<form action="https://formspree.io/f/mlgwaqzq" method="POST" id="inquiryForm">
+  <div class="form-grid">
+    <div class="form-group">
+      <label for="name">Your Name</label>
+      <input type="text" id="name" name="name" placeholder="Jane Smith" required />
+    </div>
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email" placeholder="jane@yourproperty.com" required />
+    </div>
+    <div class="form-group">
+      <label for="property">Property Name</label>
+      <input type="text" id="property" name="property" placeholder="The Grand Resort" />
+    </div>
+    <div class="form-group">
+      <label for="type">Property Type</label>
+      <select id="type" name="property_type">
+        <option value="" disabled selected>Select one</option>
+        <option>Boutique Hotel</option>
+        <option>Luxury Resort</option>
+        <option>Vacation Rental Collection</option>
+        <option>Members' Club</option>
+        <option>Spa / Wellness</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div class="form-group full">
+      <label for="products">Products of Interest</label>
+      <input type="text" id="products" name="products" placeholder="e.g. Custom robes, amenity kits, branded towels..." />
+    </div>
+    <div class="form-group full">
+      <label for="message">Tell Us More</label>
+      <textarea id="message" name="message" placeholder="Share your vision, quantity estimates, timeline, or any questions..."></textarea>
+    </div>
+  </div>
+  <div class="form-submit">
+    <button type="submit" class="btn-submit">Submit Inquiry</button>
+    <p class="form-note">We respond within 48 hours. All inquiries are confidential.</p>
+  </div>
+</form>
+<div class="success-msg" id="successMsg">
+  Thank you — your inquiry has been received. We'll be in touch within 48 hours.
+</div>
+```
+
+  </section>
+
+  <!-- FOOTER -->
+
+  <footer>
+    <div>
+      <div class="footer-logo">Valeron</div>
+      <div class="footer-tagline">Hospitality Group</div>
+    </div>
+    <div class="footer-right">© 2025 Valeron Hospitality Group. All rights reserved.</div>
+  </footer>
+
+  <script>
+    // Smooth form submission feedback
+    const form = document.getElementById('inquiryForm');
+    const successMsg = document.getElementById('successMsg');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          form.style.display = 'none';
+          successMsg.style.display = 'block';
+        } else {
+          alert('Something went wrong. Please try again or email us directly.');
+        }
+      } catch {
+        alert('Something went wrong. Please try again.');
+      }
+    });
+
+    // Fade-in on scroll for cards
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.offering-card').forEach((card, i) => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(20px)';
+      card.style.transition = `opacity 0.6s ease ${i * 0.1}s, transform 0.6s ease ${i * 0.1}s, background 0.3s`;
+      observer.observe(card);
+    });
+  </script>
+
+</body>
+</html>
